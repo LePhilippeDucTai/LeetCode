@@ -20,29 +20,32 @@
 
 # Gives the list of all of the substrings that form the string s of given size
 import functools
+import timing
 
-def _substrings(s: str, of_size : int) -> list :
-    def loop(acc : list, s: str) -> list :
-        if len(s) < of_size or len(s) == 0 :
+def _substrings(s: str, of_size : int) -> set :
+    length_of_uniques = lambda st : len("".join(set(st)))
+    def loop(acc : set , s: str) -> set :
+        length = len(s)
+        if length < of_size or length == 0 :
             return(acc)
         else :
-            acc.update(s[:of_size])
+            acc.add(length_of_uniques(s[:of_size]))
             return(loop(acc, s[1:]))
     return(loop(set(), s))    
 
 class Solution:
+    @timing.time_it
     def lengthOfLongestSubstring(self, s: str) -> int:
-        of_size = len(s)
-        length_set = lambda l, n : len(set(l)) == n
-        for i in reversed(range(1, of_size + 1)) :
-            x = _substrings(s, i)
-            mapping_set = set(map(functools.partial(length_set, n = i), x))
-            if True in mapping_set :
-                return(i)
-        return(0)
+        size = len(s)
+        max_set = lambda my_set : max(my_set) if bool(my_set) else 0
+        def loop(length):
+            x = max_set(_substrings(s, length))
+            return length if x == length else loop(x)
+        return loop(size) 
         
 if __name__ == "__main__":
-    s = "PhilippeAzertyuiopqsdfgh"
+    s = "iqgpabaalqgovakobfymyjzbbuxmihdqalfanhaayiovkamnikagtzhvvhjdqnvqydsnkuqkcegpfucpeevaffxcoghevdvw"
+    # s = "bbbbb"
+    # s = ""
     obj = Solution()
-    ss = _substrings(s, 5)
-    print(ss)
+    print(obj.lengthOfLongestSubstring(s))
