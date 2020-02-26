@@ -1,22 +1,16 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        l = list()
-        if numRows == 1:
+        if numRows == 1 :
             return s
         else :
+            first = lambda tup : tup[0]
+            second = lambda tup : tup[1]
             n = numRows - 1
-            for i, c in enumerate(s) :
-                if int(i / n) % 2 == 0:
-                    k = i % n 
-                else :
-                    k = n - i % n  
-                l.append((k, c))
-            l.sort(key = lambda tup : tup[0])
-            y = map(lambda tup : tup[1], l)
-            ret = "".join(y)
-            return(ret)
-        
-            
+            odd_part = lambda p : int( p / n ) % 2 
+            up_down = lambda i : n - i % n if odd_part(i) else i % n
+            ls = [(up_down(i), c) for i, c in enumerate(s)]
+            ls.sort(key = first)
+            return "".join(map(second, ls))
 
 
 if __name__ == "__main__":
@@ -24,6 +18,6 @@ if __name__ == "__main__":
     x = S.convert("paypalishiring", 1)
     print(x)
     x2 = S.convert("paypalishiring", 4)
-    x3 = S.convert("paypalishiring", 3)
+    x3 = S.convert("paypalishiring", 5)
     print(x2)
     print(x3)
