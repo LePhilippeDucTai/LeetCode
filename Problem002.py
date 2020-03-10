@@ -31,6 +31,6 @@ class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         x = toNum(l1) + toNum(l2)
         string_x_rev = reversed(str(x))
-        toNode = lambda y : listToNode(map(int, string_x_rev))
+        toNode = lambda y : listToNode(list(map(int, string_x_rev)))
         return(toNode(x))
 
