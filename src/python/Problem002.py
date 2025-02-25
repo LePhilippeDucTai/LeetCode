@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class ListNode:
     def __init__(self, x):
         self.val = x
@@ -33,8 +30,8 @@ def concat_to_int(ls: list[int]) -> int:
 
 class Solution:
     def addTwoNumbers(
-        self, l1: Optional[ListNode], l2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+        self, l1: ListNode | None, l2: ListNode | None
+    ) -> ListNode | None:
         r1 = concat_to_int(to_list(l1))
         r2 = concat_to_int(to_list(l2))
         print(r1, r2)

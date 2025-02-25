@@ -1,5 +1,3 @@
-from typing import List
-
 dictionary = {
     "1": "",
     "2": "abc",
@@ -21,19 +19,16 @@ class Solution:
                 for b in dictionary[digit]:
                     res.append("".join([xs, b]))
             return res
-        else:
-            return list(dictionary[digit])
+        return list(dictionary[digit])
 
-    def letterCombinations(self, digits: str) -> List[str]:
+    def letterCombinations(self, digits: str) -> list[str]:
         def loop(acc, dig):
             if dig:
                 x, *xs = dig
                 if x == "1":
                     return loop(acc, xs)
-                else:
-                    return loop(self.joinDigit(acc, x), xs)
-            else:
-                return acc
+                return loop(self.joinDigit(acc, x), xs)
+            return acc
 
         return loop([], digits)
 

@@ -5,13 +5,11 @@ class Solution:
     def isPalindrome(self, s: str):
         if not s:
             return True
-        else:
-            return self.isPalindrome(s[1:-1]) if (s[0] == s[-1]) else False
+        return self.isPalindrome(s[1:-1]) if (s[0] == s[-1]) else False
 
     def substrings_of_size(self, s: str, of_size: int):
         n_iter = s.__len__() - of_size
-        x = [s[k : (k + of_size)] for k in range(n_iter + 1)]
-        return x
+        return [s[k : (k + of_size)] for k in range(n_iter + 1)]
 
     # s is assumed to be of length less than 1000
     def longestPalindrome(self, s: str) -> str:

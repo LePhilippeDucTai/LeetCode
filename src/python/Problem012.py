@@ -1,8 +1,7 @@
 def cat_rep(st, char, times):
     if times == 0:
         return st
-    else:
-        return cat_rep(st + char, char, times - 1)
+    return cat_rep(st + char, char, times - 1)
 
 
 class Solution:
@@ -21,11 +20,8 @@ class Solution:
         if thousands > 0:
             ret = cat_rep(ret, "M", x1)
 
-        if 100 <= hundreds and hundreds <= 400:
-            if hundreds == 400:
-                ret = ret + "CD"
-            else:
-                ret = cat_rep(ret, "C", x2)
+        if hundreds >= 100 and hundreds <= 400:
+            ret = ret + "CD" if hundreds == 400 else cat_rep(ret, "C", x2)
         elif hundreds > 400:
             if hundreds == 500:
                 ret = ret + "D"
@@ -34,11 +30,8 @@ class Solution:
             else:
                 ret = cat_rep(ret + "D", "C", x2 - 5)
 
-        if 10 <= tens and tens <= 40:
-            if tens == 40:
-                ret = ret + "XL"
-            else:
-                ret = cat_rep(ret, "X", x3)
+        if tens >= 10 and tens <= 40:
+            ret = ret + "XL" if tens == 40 else cat_rep(ret, "X", x3)
         elif tens > 40:
             if tens == 50:
                 ret = ret + "L"
@@ -48,10 +41,7 @@ class Solution:
                 ret = cat_rep(ret + "L", "X", x3 - 5)
 
         if 1 <= units <= 4:
-            if units == 4:
-                ret = ret + "IV"
-            else:
-                ret = cat_rep(ret, "I", units)
+            ret = ret + "IV" if units == 4 else cat_rep(ret, "I", units)
         elif units > 4:
             if units == 5:
                 ret = ret + "V"

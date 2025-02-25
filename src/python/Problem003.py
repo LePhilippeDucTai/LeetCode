@@ -20,7 +20,7 @@
 
 # Gives the list of all of the substrings that form the string s of given size
 
-import timing
+import python.timing as timing
 
 
 def _substrings(s: str, of_size: int) -> set:
@@ -31,9 +31,8 @@ def _substrings(s: str, of_size: int) -> set:
         length = len(s)
         if length < of_size or length == 0:
             return acc
-        else:
-            acc.add(length_of_uniques(s[:of_size]))
-            return loop(acc, s[1:])
+        acc.add(length_of_uniques(s[:of_size]))
+        return loop(acc, s[1:])
 
     return loop(set(), s)
 
@@ -54,7 +53,9 @@ class Solution:
 
 
 if __name__ == "__main__":
-    s = "iqgpabaalqgovakobfymyjzbbuxmihdqalfanhaayiovkamnikagtzhvvhjdqnvqydsnkuqkcegpfucpeevaffxcoghevdvw"
+    s = (
+        "iqgpabaalqgovakobfymyjzbbuxmihdqalfanhaayiovkamnikagtzhvvhjdqnvqydsnkuqkcegpfucpeevaffxcoghevdvw"
+    )
     # s = "bbbbb"
     # s = ""
     obj = Solution()

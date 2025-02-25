@@ -1,21 +1,16 @@
-from typing import List
-
-
 class Solution:
-    def maxArea(self, height: List[int]) -> int:
+    def maxArea(self, height: list[int]) -> int:
         def loop(i, j, acc):
             distance = j - i
             if distance:
                 if height[i] < height[j]:
                     return loop(i + 1, j, max(acc, distance * height[i]))
-                else:
-                    return loop(i, j - 1, max(acc, distance * height[j]))
-            else:
-                return acc
+                return loop(i, j - 1, max(acc, distance * height[j]))
+            return acc
 
         return loop(0, len(height) - 1, 0)
 
-    def maxArea2(self, height: List[int]) -> int:
+    def maxArea2(self, height: list[int]) -> int:
         maximum = -1
         i, j = 0, len(height) - 1
         while i < j:

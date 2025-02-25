@@ -1,9 +1,8 @@
-from typing import List
 import functools as ft
 
 
 class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
+    def firstMissingPositive(self, nums: list[int]) -> int:
         numsset = filter((lambda x: x > 0), set(nums))
 
         def first_int(x, y):
