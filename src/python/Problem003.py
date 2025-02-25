@@ -16,7 +16,7 @@
 # Input: "pwwkew"
 # Output: 3
 # Explanation: The answer is "wke", with the length of 3.
-#              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+#              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.  # noqa: E501
 
 # Gives the list of all of the substrings that form the string s of given size
 

@@ -6,51 +6,56 @@ def cat_rep(st, char, times):
 
 class Solution:
     def intToRoman2(self, num: int) -> str:
+        thousands, hundreds, tens, units = self.split_number(num)
+        ret = ""
+        ret += self.convert_thousands(thousands)
+        ret += self.convert_hundreds(hundreds)
+        ret += self.convert_tens(tens)
+        ret += self.convert_units(units)
+        return ret
+
+    def split_number(self, num: int):
         thousands = int(num / 1000) * 1000
         hundreds = int((num - thousands) / 100) * 100
         tens = int((num - hundreds - thousands) / 10) * 10
         units = num % 10
-        print(thousands, hundreds, tens, units)
+        return thousands, hundreds, tens, units
 
-        x1 = thousands / 1000
-        x2 = hundreds / 100
-        x3 = tens / 10
+    def convert_thousands(self, thousands: int) -> str:
+        return cat_rep("", "M", thousands // 1000)
 
-        ret = ""
-        if thousands > 0:
-            ret = cat_rep(ret, "M", x1)
+    def convert_hundreds(self, hundreds: int) -> str:
+        if hundreds == 400:
+            return "CD"
+        if hundreds == 500:
+            return "D"
+        if hundreds == 900:
+            return "CM"
+        if hundreds > 500:
+            return cat_rep("D", "C", (hundreds // 100) - 5)
+        return cat_rep("", "C", hundreds // 100)
 
-        if hundreds >= 100 and hundreds <= 400:
-            ret = ret + "CD" if hundreds == 400 else cat_rep(ret, "C", x2)
-        elif hundreds > 400:
-            if hundreds == 500:
-                ret = ret + "D"
-            elif hundreds == 900:
-                ret = ret + "CM"
-            else:
-                ret = cat_rep(ret + "D", "C", x2 - 5)
+    def convert_tens(self, tens: int) -> str:
+        if tens == 40:
+            return "XL"
+        if tens == 50:
+            return "L"
+        if tens == 90:
+            return "XC"
+        if tens > 50:
+            return cat_rep("L", "X", (tens // 10) - 5)
+        return cat_rep("", "X", tens // 10)
 
-        if tens >= 10 and tens <= 40:
-            ret = ret + "XL" if tens == 40 else cat_rep(ret, "X", x3)
-        elif tens > 40:
-            if tens == 50:
-                ret = ret + "L"
-            elif tens == 90:
-                ret = ret + "XC"
-            else:
-                ret = cat_rep(ret + "L", "X", x3 - 5)
-
-        if 1 <= units <= 4:
-            ret = ret + "IV" if units == 4 else cat_rep(ret, "I", units)
-        elif units > 4:
-            if units == 5:
-                ret = ret + "V"
-            elif units == 9:
-                ret = ret + "IX"
-            else:
-                ret = cat_rep(ret + "V", "I", units - 5)
-
-        return ret
+    def convert_units(self, units: int) -> str:
+        if units == 4:
+            return "IV"
+        if units == 5:
+            return "V"
+        if units == 9:
+            return "IX"
+        if units > 5:
+            return cat_rep("V", "I", units - 5)
+        return cat_rep("", "I", units)
 
     def intToRoman(self, num):
         d = {
