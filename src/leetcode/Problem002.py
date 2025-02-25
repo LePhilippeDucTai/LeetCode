@@ -1,39 +1,54 @@
-# Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
     def __repr__(self):
-        if self.next == None:
+        if self.next is None:
             return str(self.val)
-        else:
-            return str(self.val) + " -> " + str(self.next)
+        return str(self.val) + " -> " + str(self.next)
 
 
-def toNum(l: ListNode) -> int:
-    def loop(acc: int, lp: ListNode, multp: int) -> int:
-        if not lp:
-            return acc
-        else:
-            return loop(acc + lp.val * multp, lp.next, multp * 10)
+def from_list(ls: list[int]) -> ListNode:
+    if ls:
+        val, *tail = ls
+        node = ListNode(val)
+        if len(tail) > 0:
+            node.next = from_list(tail)
+    return node
 
-    return loop(acc=0, lp=l, multp=1)
+
+def to_list(ln: ListNode | None) -> list[int]:
+    if ln is None:
+        return []
+    return [ln.val, *to_list(ln.next)]
 
 
-def listToNode(l: list) -> ListNode:
-    x, *xs = l
-    L_ret = ListNode(x)
-    if not xs:
-        return L_ret
-    else:
-        L_ret.next = listToNode(xs)
-    return L_ret
+def concat_to_int(ls: list[int]) -> int:
+    return int("".join(map(str, ls)))
 
 
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        x = toNum(l1) + toNum(l2)
-        string_x_rev = reversed(str(x))
-        toNode = lambda y: listToNode(list(map(int, string_x_rev)))
-        return toNode(x)
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        r1 = concat_to_int(to_list(l1))
+        r2 = concat_to_int(to_list(l2))
+        print(r1, r2)
+        r = r1 + r2
+        return from_list(reversed(list(map(int, list(str(r))))))
+
+
+def main():
+    l1 = from_list([2, 4, 9])
+    l2 = from_list([5, 6, 4, 9])
+    sol = Solution()
+    r = sol.addTwoNumbers(l1, l2)
+    print(r)
+
+
+if __name__ == "__main__":
+    main()

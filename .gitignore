@@ -1,3 +1,7 @@
 __pycache__/timing.cpython-37.pyc
 *.json
 *.pyc
+
+# Added by cargo
+
+/target
