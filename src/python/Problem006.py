@@ -1,15 +1,25 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1 :
+        if numRows == 1:
             return s
-        else :
-            first = lambda tup : tup[0]
-            second = lambda tup : tup[1]
+        else:
+
+            def first(tup):
+                return tup[0]
+
+            def second(tup):
+                return tup[1]
+
             n = numRows - 1
-            odd_part = lambda p : int( p / n ) % 2 
-            up_down = lambda i : n - i % n if odd_part(i) else i % n
+
+            def odd_part(p):
+                return int(p / n) % 2
+
+            def up_down(i):
+                return n - i % n if odd_part(i) else i % n
+
             ls = [(up_down(i), c) for i, c in enumerate(s)]
-            ls.sort(key = first)
+            ls.sort(key=first)
             return "".join(map(second, ls))
 
 

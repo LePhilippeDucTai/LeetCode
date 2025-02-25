@@ -1,32 +1,34 @@
-
-def printThis(func) :
+def printThis(func):
     def wrapper(*args, **kwargs):
         s = func(*args, **kwargs)
         print(s)
-        return(s)
-    return(wrapper)
+        return s
+
+    return wrapper
+
 
 class Solution:
-
     @staticmethod
-    def isOverflow(x : float) -> bool :
-        if (x > 2**31 - 1 or x < -2**31) :
+    def isOverflow(x: float) -> bool:
+        if x > 2**31 - 1 or x < -(2**31):
             return True
-        else :
+        else:
             return False
 
     @printThis
     def reverse(self, x: int) -> int:
-        sign = lambda x : -1. if (x < 0) else 1.
-        if self.isOverflow(x) :
+        def sign(x):
+            return -1.0 if (x < 0) else 1.0
+
+        if self.isOverflow(x):
             return 0
-        else :
+        else:
             r = abs(x)
             xs = list(reversed(str(r)))
-            s = sign(x) * float("".join(xs)) 
-            if self.isOverflow(s) :
+            s = sign(x) * float("".join(xs))
+            if self.isOverflow(s):
                 return 0
-            else :
+            else:
                 return int(s)
 
 
@@ -36,5 +38,3 @@ if __name__ == "__main__":
     print(yy)
     y = s.reverse(yy)
     y1 = s.reverse(-1951511)
-        
-

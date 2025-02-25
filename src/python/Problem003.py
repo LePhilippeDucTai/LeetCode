@@ -19,13 +19,13 @@
 #              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 # Gives the list of all of the substrings that form the string s of given size
-import functools
 
 import timing
 
 
 def _substrings(s: str, of_size: int) -> set:
-    length_of_uniques = lambda st: len("".join(set(st)))
+    def length_of_uniques(st):
+        return len("".join(set(st)))
 
     def loop(acc: set, s: str) -> set:
         length = len(s)
@@ -42,7 +42,9 @@ class Solution:
     @timing.time_it
     def lengthOfLongestSubstring(self, s: str) -> int:
         size = len(s)
-        max_set = lambda my_set: max(my_set) if bool(my_set) else 0
+
+        def max_set(my_set):
+            return max(my_set) if bool(my_set) else 0
 
         def loop(length):
             x = max_set(_substrings(s, length))
